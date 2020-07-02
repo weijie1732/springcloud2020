@@ -1,0 +1,30 @@
+server:
+  port: 3344
+
+spring:
+  application:
+    name: cloud-config-center
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/weijie1732/springcloud-config.git #github上面得git仓库得名字   https://github.com/weijie1732/springcloud-config
+          search-paths:
+            - springcloud-config     #搜索目录
+      label: master                  #读取分支
+rabbitmq:
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+
+management:  #rabbitmq相关配置，暴露bus刷新配置的端点
+  endpoints: #暴露bus刷新配置的端点，需要有actuator依赖
+    web:
+      exposure:
+        include: 'bus-refresh'
